@@ -1,8 +1,14 @@
+### version 1 : pas de vérification du code utilisateur
+
 ### PREREQUIS importants :
-    # le répertoire /etc/ppd/cups/init est créé sur la machine
+    # python installé
+    # tkinter installé (apt-get install python3-tk)
+    # créer le répertoire /etc/ppd/cups/init 
     # chmod 777 /etc/cups/ppd/*
     # copier le script Python dans /etc/opt et changer les droits root:root
-    # créer un bash ou un lanceur contenant python3 /opt/code_RICOH.py
+    # créer un bash ou un lanceur contenant (python3 /opt/code_RICOH.py)
+    
+    # dans le code ci-dessous le fichier de configuration de notre imprimante se nomme copieur_SPD.ppd, le renommer si nécessaire
 
 import os
 from tkinter import *
