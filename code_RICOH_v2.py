@@ -19,19 +19,21 @@ liste_codes = ["1000","1100","1200","1300"] # à compléter
 def modifFichierPPD(usercode):
 
     # définition des chemins dans des variables
-    fsave = "/etc/cups/ppd/RICOH_4504.ppd_save"
-    fppd = "/etc/cups/ppd/RICOH_4504.ppd"
+    fsave = "/etc/cups/ppd/copieur_SDP.ppd_save"
+    fppd = "/etc/cups/ppd/copieur_SDP.ppd"
     ftemp = "/etc/cups/ppd/init/ppdtmp"
 
     if os.path.isfile(fsave): # on vérifie le ppd_save existe
-        os.system("cp {} {}".format(fsave,fppd)) # utile ???
+        os.system("cp {} {}".format(fsave,fppd)) # rénitialisation du ppd
         os.system("cp {} {}".format(fsave,ftemp)) # copie du ppd_save en ppdtmp
 
         # ouverture du fichier ppd.tmp en lecture, copie du contenu dans une variable
         # chaine en remplaçant le code du photocopieur initialisé à 0000 par le code
         # utilisateur
         fichier_source = open(ftemp,"r")
-        chaine=fichier_source.read().replace("0000",usercode)
+        remplacement = "*DefaultUserCode: "
+        remplacement+= usercode
+        chaine=fichier_source.read().replace("%*DefaultUserCode: 0000",remplacement)
         fichier_source.close() # fermeture du fichier
 
         # ouverture du fichier ppd.tmp en écriture en effaçant tout le contenu et copie
@@ -40,14 +42,8 @@ def modifFichierPPD(usercode):
         fichier_cible.write(chaine)
         fichier_cible.close() # fermeture
 
-        os.system("mv {} {}".format(ftemp,fppd)) # copie du ppd.tmp vers .ppd
+        os.system("cp {} {}".format(ftemp,fppd)) # copie du ppd.tmp vers .ppd
 
-        # contrôle - mode développement - A SUPPRIMER ds version prod
-        fichier = open(fppd,"r")
-        for ligne in fichier:
-            if "*DefaultUserCode" in ligne:
-                print(ligne)
-        fichier.close()
     else:
         showwarning('Résultat','Erreur système !')
 
