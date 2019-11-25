@@ -75,12 +75,13 @@ Label2 = Label(fenetreDialogue,text = "Code").grid(row=1,column=0,padx=30,pady=1
 saisieCode = StringVar(fenetreDialogue)
 saisieCode.trace("w", lambda *args: limiteSaisie(saisieCode))
 
-Champ = Entry(fenetreDialogue, textvariable = saisieCode,show="*",width=10)
+Champ = Entry(fenetreDialogue, textvariable = saisieCode, width=10)
 Champ.focus_set()
 Champ.grid(row=1,column=1)
-Champ.bind("<Return>",verifCode)
+Champ.bind("<Return>",verifCode) # association de la touche Entrée à verifCode
 
 fenetreDialogue.mainloop()
+
 
 
 
