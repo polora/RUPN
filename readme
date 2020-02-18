@@ -1,0 +1,24 @@
+Code photocopieur RICOH SDP depuis Mint
+
+
+PRE-REQUIS : python3 et tkinter (python3-tk) installés sur les machines
+- sudo apt-cache policy python3 / sudo apt-cache policy python3-tk pour savoir
+- sudo apt-get install .... pour installer
+
+
+- on renomme le pilote téléchargé en RICOH_SDP.ppd
+
+- copier le ppd du copieur dans le répertoire : sudo RICOH_SDP.ppd /etc/cups/ppd
+- faire une copie de ce ppd en ppd_save : sudo cp RICOH_SDP.ppd RICOH_SDP.ppd_save
+- modifier RICOH_SDP.ppd_save : remplacement de *DefaultUserCode: None par *DefaultUserCode: 0000
+- créer le répertoire /etc/cups/ppd/init
+- modification des droits : sudo chmod 777 /etc/cups/ppd/*
+
+- copier le script python dans /opt (/opt/code_RICOH.py)
+- vérifier les noms de fichiers dans le code et les modifier si nécessaire
+- changer les droits root:root
+- le rendre exécutable
+
+- créer un bash ou un lanceur sur le Bureau contenant : python3 /opt/code_RICOH.py
+
+
